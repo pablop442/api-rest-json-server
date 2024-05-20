@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "6d779767-a12d-4e9c-a5ec-0bfac680099a",
+		"name": "json_server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18620817"
+	},
+	"item": [
+		{
+			"name": "User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 30ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(120);",
+							"});",
+							"",
+							"pm.test(\"Response content is correct\", function(){",
+							"    const responseData = pm.response.json();",
+							"    let userId = pm.environment.get(\"userId\");",
+							"    let id = pm.environment.get(\"id\");",
+							"",
+							"    pm.expect(responseData.userId).to.eql(Number(userId));",
+							"    pm.expect(responseData.id).to.eql(Number(id));",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": {{userId}},\r\n    \"id\": {{id}},\r\n    \"title\": \"Testing User\",\r\n    \"body\": \"Some testing text text...\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 30ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(30);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response content is correct\", function(){\r",
+							"    const responseData = pm.response.json();\r",
+							"    let id = pm.environment.get(\"id\");\r",
+							"\r",
+							"\r",
+							"    pm.expect(responseData.id).to.eq(Number(id))\r",
+							"            \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/posts/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 30ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(30);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response content is correct\", function(){\r",
+							"    const responseData = pm.response.json();\r",
+							"    let updatedSummary = pm.environment.get(\"updatedSummary\");\r",
+							"    let updatedTitle = pm.environment.get(\"updatedTitle\");\r",
+							"\r",
+							"    pm.expect(responseData.title).to.contain(updatedTitle)\r",
+							"    pm.expect(responseData.body).to.contain(updatedSummary)\r",
+							"            \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"{{updatedTitle}}\",\r\n    \"body\": \"{{updatedSummary}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"{{id}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 90ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(120);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response content is correct\", function(){\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.id).to.not.exist\r",
+							"            \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": {{userId}},\r\n    \"id\": {{id}},\r\n    \"title\": \"Testing User 1\",\r\n    \"body\": \"Some testing text text...\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"{{id}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
